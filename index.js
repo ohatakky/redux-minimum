@@ -1,5 +1,6 @@
 import { createStore } from 'redux';
 
+// ActionCreatorの責務はactionを作ってreturnするだけ。
 const myActionCreator = (num=1) => {
     return {
         type: "INC_COUNTER",
@@ -7,6 +8,9 @@ const myActionCreator = (num=1) => {
     };
 };
 
+// stateとactionを引数に受け取る。
+// actionの種類で処理が変わる。
+// stateを変更するのではなく、Object.assign()を使って新しいオブジェクトを作り、それを新しいstateにする。
 const myReducer = (state={counter:0}, action) => {
     switch(action.type){
         case 'INC_COUNTER':
@@ -18,11 +22,10 @@ const myReducer = (state={counter:0}, action) => {
     };
 };
 
+// storeを作る際にreducerを渡す。
 const myStore = createStore(myReducer);
 
-// この時点で、Reduxは機能している
-// 以下は動作確認
-
+// 動作確認
 console.log(myStore.getState());
 myStore.dispatch(myActionCreator(1));
 myStore.dispatch(myActionCreator(2));
